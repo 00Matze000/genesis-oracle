@@ -61,7 +61,7 @@ def generate_data():
     plt.plot(t[mask_normal], noisy_signal[mask_normal], label="Filtered + Noise", color="blue")
     plt.plot(t[mask_normal], signal[mask_normal], label="Original Fourier", alpha=0.3, linestyle="--", color="gray")
     plt.title("Normal Signal Window (Periods 10-15)")
-    plt.legend()
+    plt.legend(loc="upper right")
     plt.grid(True)
     
     # Anomaly window (Periods 65-80)
@@ -70,7 +70,7 @@ def generate_data():
     plt.plot(t[mask_anomaly], noisy_signal[mask_anomaly], label="Signal with Anomaly", color="red")
     plt.axvspan(70 * T_val, 75 * T_val, color='yellow', alpha=0.2, label="Anomaly Region")
     plt.title("Anomaly Injection (Periods 70-75)")
-    plt.legend()
+    plt.legend(loc="upper right")
     plt.grid(True)
     
     plt.tight_layout()
