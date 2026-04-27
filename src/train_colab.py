@@ -15,9 +15,9 @@ except FileNotFoundError:
     signal = np.sin(np.linspace(0, 100, 10000))
 
 # 2. Prepare data for the Autoencoder
-# Normal data before period 60, rest for testing
-# window_size = 50
-train_windows, test_windows = prepare_data(signal, window_size=50, split_period=600) # period 60 roughly index 600 if dt=0.1
+# Anomaly is injected around period 70-75 (index ~70k-75k);
+# train on the first 60% (~60k samples) of normal physics.
+train_windows, test_windows = prepare_data(signal, window_size=50, train_ratio=0.6)
 all_windows = np.concatenate([train_windows, test_windows], axis=0)
 
 # 3. Initialize and Compile the Oracle

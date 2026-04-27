@@ -2,23 +2,23 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 
-def prepare_data(signal, window_size=50, split_period=60):
+def prepare_data(signal, window_size=50, train_ratio=0.6):
     """
     Slices a 1D signal into overlapping 2D matrices (window_size=50 timesteps).
-    Splits the data: use the normal data (before period 60) for training,
-    and the rest for testing.
+    Splits at int(len(signal) * train_ratio): the first share is training
+    (normal physics, before the injected anomaly), the rest is test data.
+    With 100k samples and train_ratio=0.6, this matches "before period 60"
+    of the 100-period source signal (1000 points/period).
     """
-    # Create overlapping windows
     windows = []
     for i in range(len(signal) - window_size + 1):
         windows.append(signal[i : i + window_size])
     windows = np.array(windows)
-    
-    # We assume 'split_period' corresponds to the index where the anomaly starts.
-    # Depending on the exact data structure, this might need an adjustment to map 'period 60' to exact index.
-    train_windows = windows[:split_period]
-    test_windows = windows[split_period:]
-    
+
+    split_idx = int(len(signal) * train_ratio)
+    train_windows = windows[:split_idx]
+    test_windows = windows[split_idx:]
+
     return train_windows, test_windows
 
 class SignalCompression(keras.layers.Layer):
