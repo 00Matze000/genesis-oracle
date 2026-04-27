@@ -23,36 +23,49 @@ def prepare_data(signal, window_size=50, split_period=60):
 
 class SignalCompression(keras.layers.Layer):
     """
-    Custom encoder layer using subclassing.
-    Reduces the 50-timestep window down to a latent dimension of 8.
+    Custom encoder layer using Conv1D for better temporal pattern recognition.
+    Input: (batch, 50, 1) - assumed window_size=50 with 1 feature.
     """
     def __init__(self, latent_dim=8, **kwargs):
         super(SignalCompression, self).__init__(**kwargs)
         self.latent_dim = latent_dim
 
     def build(self, input_shape):
+        # Shape: (batch, 50, 1) -> (batch, 25, 16) -> (batch, 1, latent_dim)
+        self.conv1 = keras.layers.Conv1D(filters=16, kernel_size=3, strides=2, padding='same', activation='relu')
+        self.pool = keras.layers.GlobalAveragePooling1D()
         self.dense = keras.layers.Dense(self.latent_dim, activation='relu')
         super(SignalCompression, self).build(input_shape)
 
     def call(self, inputs):
-        return self.dense(inputs)
+        # Add feature dimension if missing: (batch, 50) -> (batch, 50, 1)
+        if len(inputs.shape) == 2:
+            inputs = tf.expand_dims(inputs, axis=-1)
+        x = self.conv1(inputs) # (batch, 25, 16)
+        x = self.pool(x)       # (batch, 16)
+        return self.dense(x)   # (batch, 8)
 
 class SignalExpansion(keras.layers.Layer):
     """
-    Custom decoder layer using subclassing.
-    Reconstructs 8 dimensions back to 50.
+    Custom decoder layer using Conv1DTranspose to reconstruct the signal.
+    Input: (batch, 8) -> Output: (batch, 50)
     """
     def __init__(self, original_dim=50, **kwargs):
         super(SignalExpansion, self).__init__(**kwargs)
         self.original_dim = original_dim
 
     def build(self, input_shape):
-        # Typically linear or sigmoid for reconstruction depending on data scaling
-        self.dense = keras.layers.Dense(self.original_dim)
+        # (batch, 8) -> (batch, 1, 8) -> (batch, 50, 1)
+        self.dense = keras.layers.Dense(25 * 16, activation='relu')
+        self.reshape = keras.layers.Reshape((25, 16))
+        self.deconv = keras.layers.Conv1DTranspose(filters=1, kernel_size=3, strides=2, padding='same')
         super(SignalExpansion, self).build(input_shape)
 
     def call(self, inputs):
-        return self.dense(inputs)
+        x = self.dense(inputs)   # (batch, 400)
+        x = self.reshape(x)     # (batch, 25, 16)
+        x = self.deconv(x)      # (batch, 50, 1)
+        return tf.squeeze(x, axis=-1) # (batch, 50)
 
 class PhysicsAutoencoder(keras.Model):
     """
