@@ -4,17 +4,15 @@ import tensorflow as tf
 from tensorflow import keras
 from src.architecture import PhysicsAutoencoder, prepare_data
 
-# 1. Load data (Assuming data was generated and saved as .npy or similar in the repo)
-# In Exercise 1, it said "physical data is synthesized". 
-# Usually, this is saved in a 'data/' folder.
+# 1. Load data
 try:
-    # Adjust path if necessary based on your Colab setup
-    signal = np.load('data/signal.npy') 
-    print("Signal data loaded successfully.")
+    # Use the real data from Project 2
+    signal = np.load('data/datastream.npy') 
+    print(f"Signal data loaded successfully. Shape: {signal.shape}")
 except FileNotFoundError:
-    print("Warning: data/signal.npy not found. Please ensure data is generated.")
-    # Fallback for demonstration if data is missing (not ideal for real submission)
-    signal = np.sin(np.linspace(0, 100, 1000)) 
+    print("Warning: data/datastream.npy not found.")
+    # Fallback only if absolutely necessary
+    signal = np.sin(np.linspace(0, 100, 10000))
 
 # 2. Prepare data for the Autoencoder
 # Normal data before period 60, rest for testing
