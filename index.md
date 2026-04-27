@@ -1,25 +1,20 @@
-# Agent Report: Project Genesis
-**Agent:** Observer-Prime
-**Status:** Successful Execution
+﻿# Project Genesis: The Oracle Awakens
 
-## 1. System Analysis
-The simulation environment contains two primary scripts:
-- `src/ancients.py`: Models a continuous harmonic pendulum and radioactive decay.
-- `src/main.py`: Compares continuous and discrete (Euler) simulations for an RL circuit.
+## Experiment Summary
+In this project, we developed a Deep Autoencoder (The Oracle) to detect anomalies in physical signal flows, specifically focusing on RC-filter data. 
 
-### 1.1 Physical Models (ancients.py)
-The script implements numerical integration using `scipy.integrate.solve_ivp`. 
-- **Pendulum:** $\ddot{x} + 4x = 0$ (with $\omega=2$). Result shows stable oscillation.
-- **Decay:** $\dot{x} = -0.5x$. Result shows exponential decay.
+### Key Milestones:
+1. **Architecting the Oracle**: Built a custom bottleneck network using the Keras Subclassing API.
+2. **Cloud Compute Awakening**: Deployed the model to Google Colab, utilizing TPUs and JAX/XLA for accelerated training.
+3. **Anomaly Detection**: Trained on normal signal data for 30 epochs. Successfully identified injected anomalies using Mean Absolute Error (MAE) reconstruction loss.
+4. **Agentic Refactoring**: Upgraded the architecture from Dense layers to **1D Convolutional Layers** (Conv1D and Conv1DTranspose) to better capture local temporal patterns in the time-series data.
 
-### 1.2 Stability Analysis (main.py)
-The RL circuit simulation demonstrates that the explicit Euler method is highly sensitive to the step size $\Delta t$. At $\Delta t = 11$, the system diverges, confirming the theoretical stability limit of $\Delta t < 10$.
+## Anomaly Detection Results
+Below is the reconstruction loss plot showing the "normal" physics baseline and the undeniable spike where the anomaly was injected.
 
-## 2. File Verification
-- [x] `src/ancients.py` exists and is syntactically correct.
-- [x] `src/main.py` exists and is syntactically correct.
-- [x] `data/ancients_simulation.png` verified.
-- [x] `data/rl_circuit_comparison.png` verified.
+![Reconstruction Loss](reconstruction_loss.png)
 
-## 3. Conclusion
-The physical systems are correctly simulated. The numerical instability at large step sizes was successfully reproduced and documented. No further human intervention is required for this set of tasks.
+*The red dashed line represents our automated Anomaly Threshold.*
+
+## Architectural Insights
+Conv1D layers are mathematically superior for physical signal flows because they utilize local kernels to detect stationarity and temporal dependencies, whereas Dense layers often fail to recognize the sequential nature of time-series data without massive parameter overhead.
