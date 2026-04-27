@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import os
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
 def generate_data():
     # Parameters based on Student ID 310
@@ -49,8 +51,9 @@ def generate_data():
     noisy_signal[spike_mask] += 2.0 * np.sin(50 * omega_0 * t[spike_mask])
 
     # 4. Save Data
-    os.makedirs("data", exist_ok=True)
-    np.save("data/datastream.npy", noisy_signal)
+    data_dir = REPO_ROOT / "data"
+    data_dir.mkdir(exist_ok=True)
+    np.save(data_dir / "datastream.npy", noisy_signal)
     
     # 5. Plotting
     plt.figure(figsize=(12, 6))
@@ -74,7 +77,7 @@ def generate_data():
     plt.grid(True)
     
     plt.tight_layout()
-    plt.savefig("data_feed.png")
+    plt.savefig(REPO_ROOT / "data_feed.png")
     print("Data generated, saved to data/datastream.npy and plot saved as data_feed.png")
 
 if __name__ == "__main__":
