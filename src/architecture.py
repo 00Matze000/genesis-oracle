@@ -1,6 +1,6 @@
 import numpy as np
-import tensorflow as tf
-from tensorflow import keras
+import keras
+from keras import ops
 
 def prepare_data(signal, window_size=50, train_ratio=0.6):
     """
@@ -40,7 +40,7 @@ class SignalCompression(keras.layers.Layer):
     def call(self, inputs):
         # Add feature dimension if missing: (batch, 50) -> (batch, 50, 1)
         if len(inputs.shape) == 2:
-            inputs = tf.expand_dims(inputs, axis=-1)
+            inputs = ops.expand_dims(inputs, axis=-1)
         x = self.conv1(inputs) # (batch, 25, 16)
         x = self.pool(x)       # (batch, 16)
         return self.dense(x)   # (batch, 8)
@@ -65,7 +65,7 @@ class SignalExpansion(keras.layers.Layer):
         x = self.dense(inputs)   # (batch, 400)
         x = self.reshape(x)     # (batch, 25, 16)
         x = self.deconv(x)      # (batch, 50, 1)
-        return tf.squeeze(x, axis=-1) # (batch, 50)
+        return ops.squeeze(x, axis=-1) # (batch, 50)
 
 class PhysicsAutoencoder(keras.Model):
     """

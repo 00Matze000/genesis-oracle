@@ -1,8 +1,12 @@
+import os
+os.environ["KERAS_BACKEND"] = "jax"
+
 import numpy as np
 import matplotlib.pyplot as plt
-import tensorflow as tf
-from tensorflow import keras
+import keras
 from src.architecture import PhysicsAutoencoder, prepare_data
+
+print(f"Keras backend: {keras.backend.backend()}")
 
 # 1. Load data
 try:
