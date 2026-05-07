@@ -21,16 +21,21 @@ def oscillator_step(x, v, w, gamma=0.1, dt=0.01):
 # Wir vektorisieren über x, v und w (in_axes=0 für alle drei).
 vmapped_step = jax.vmap(oscillator_step, in_axes=(0, 0, 0))
 
-@jax.jit(static_argnums=(3,))
+@jax.jit
 def run_simulation_jax(x, v, w, n_steps=1000):
     """
     Führt die gesamte Simulation auf dem Accelerator aus (Hardware Fusion).
-    n_steps ist statisch, damit die Python-Schleife während JIT unrolled werden kann.
+    Wir nutzen jax.lax.fori_loop, um Tracer-Probleme mit Python-Schleifen zu vermeiden.
     """
-    for _ in range(n_steps):
-        x, v = vmapped_step(x, v, w)
+    def body_fun(i, state):
+        x, v = state
+        return vmapped_step(x, v, w)
+
+    # fori_loop(lower, upper, body_fun, init_val)
+    # n_steps wird hier als dynamischer Wert im Graphen behandelt.
+    final_x, final_v = jax.lax.fori_loop(0, n_steps, body_fun, (x, v))
     
-    return x, v
+    return final_x, final_v
 
 def main():
     n_oscillators = 100_000
