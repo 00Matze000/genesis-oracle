@@ -18,5 +18,22 @@ In dieser Aufgabe wurde die Simulation nach JAX portiert, um moderne Accelerator
 - **Messwerte (Lokal):** *Warten auf Ausführung*
 - **Speedup Faktor:** *Warten auf Ausführung*
 
-### Das Tracing-Phänomen
-Der erste Aufruf einer mit `@jax.jit` dekorierten Funktion ist deutlich langsamer, da JAX die Funktion "traced", um einen optimierten Graphen für den XLA-Compiler zu erstellen. Erst der zweite Lauf profitiert von der direkten Ausführung des optimierten Maschinencodes auf dem Silicon.
+## Exercise 3: Time Travel via Gradients (grad)
+
+In dieser Aufgabe wurde die Simulation als differenzierbarer mathematischer Graph behandelt. Statt Trial-and-Error wurde der optimale Parameter (Anfangsgeschwindigkeit) direkt über Gradienten bestimmt.
+
+- **Status:** Implementiert in `src/jax_optimization.py`.
+- **Ziel:** Erreichen einer Distanz von 150.0m nach 5s.
+- **Ergebnis:** *Warten auf Ausführung (Optimierte Geschwindigkeit)*
+
+## Exercise 4: Agentic Refactoring for the Horizon (Flax)
+
+In der finalen Aufgabe wurde der Übergang von zustandsorientierten (Object-Oriented) Architekturen wie Keras hin zu zustandslosen (stateless) Modellen mit Flax vollzogen.
+
+- **Status:** Implementiert in `src/flax_core.py`.
+- **Modell:** Multi-Layer Perceptron (MLP) mit `flax.linen`.
+
+### Explizites vs. Implizites State-Management
+In klassischen Frameworks wie Keras sind die Gewichte Teil des Modell-Objekts (`model.weights`). Dies erzeugt "Side-Effects", die JAX-Transformationen wie `jit` oder `vmap` erschweren. Flax trennt die **Architektur** (das `nn.Module`) strikt von den **Parametern** (dem `params` Dictionary). 
+
+Die Initialisierung erfolgt über `model.init`, welches die Gewichte zurückgibt, ohne sie im Modell zu speichern. Der Forward Pass wird über `model.apply` ausgeführt, wobei die Gewichte explizit als Argument übergeben werden müssen. Diese funktionale Reinheit ist der Schlüssel für die Skalierbarkeit und Differenzierbarkeit in modernen KI-Systemen.
