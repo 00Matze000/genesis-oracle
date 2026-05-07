@@ -4,7 +4,7 @@
 
 Die Simulation von 100.000 gedämpften harmonischen Oszillatoren mit Standard-NumPy und einer Python-Zeitschleife diente als Performance-Baseline.
 
-- **Gesamtzeit (Legacy):** 0.8684 Sekunden
+- **Gesamtzeit (Legacy):** 1.3432 Sekunden
 - **Beobachtung:** Obwohl NumPy die Array-Operationen effizient handhabt, verhindert der Overhead der Python-`for`-Schleife (1.000 Iterationen) eine maximale Auslastung der Hardware.
 
 ## Exercise 2: The Tensor Multiverse (vmap & jit)

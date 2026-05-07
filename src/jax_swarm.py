@@ -21,18 +21,12 @@ def oscillator_step(x, v, w, gamma=0.1, dt=0.01):
 # Wir vektorisieren über x, v und w (in_axes=0 für alle drei).
 vmapped_step = jax.vmap(oscillator_step, in_axes=(0, 0, 0))
 
-@jax.jit
+@jax.jit(static_argnums=(3,))
 def run_simulation_jax(x, v, w, n_steps=1000):
     """
     Führt die gesamte Simulation auf dem Accelerator aus (Hardware Fusion).
+    n_steps ist statisch, damit die Python-Schleife während JIT unrolled werden kann.
     """
-    def body_fun(i, state):
-        x, v = state
-        return vmapped_step(x, v, w)
-
-    # jax.lax.fori_loop ist oft effizienter für JIT, aber hier nutzen wir 
-    # eine einfache Python-Schleife innerhalb von JIT für die Lesbarkeit,
-    # da JIT sie ohnehin "unrollt" oder optimiert.
     for _ in range(n_steps):
         x, v = vmapped_step(x, v, w)
     
