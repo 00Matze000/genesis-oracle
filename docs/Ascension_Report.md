@@ -4,7 +4,7 @@
 
 Die Simulation von 100.000 gedämpften harmonischen Oszillatoren mit Standard-NumPy und einer Python-Zeitschleife diente als Performance-Baseline.
 
-- **Gesamtzeit (Legacy):** 1.3432 Sekunden
+- **Gesamtzeit (Legacy):** 1.2820 Sekunden
 - **Beobachtung:** Obwohl NumPy die Array-Operationen effizient handhabt, verhindert der Overhead der Python-`for`-Schleife (1.000 Iterationen) eine maximale Auslastung der Hardware.
 
 ## Exercise 2: The Tensor Multiverse (vmap & jit)
@@ -15,8 +15,13 @@ In dieser Aufgabe wurde die Simulation nach JAX portiert, um moderne Accelerator
 - **Technologien:** 
     - `vmap`: Zur automatischen Vektorisierung der Berechnungen über alle Oszillatoren hinweg.
     - `jit`: Zur Kompilierung der gesamten Zeitschleife via XLA (Accelerated Linear Algebra).
-- **Messwerte (Lokal):** *Warten auf Ausführung*
-- **Speedup Faktor:** *Warten auf Ausführung*
+- **Messwerte (Colab):** 
+    - Warm-up (Kompilierung): 0.1071 Sekunden
+    - **Optimierter Run (2nd Run): 0.0258 Sekunden**
+- **Speedup Faktor:** **~49.69x** (Legacy 1.2820s / JAX 0.0258s)
+
+### Das Tracing-Phänomen
+Der erste Aufruf einer mit `@jax.jit` dekorierten Funktion ist deutlich langsamer, da JAX die Funktion "traced", um einen optimierten Graphen für den XLA-Compiler zu erstellen. Erst der zweite Lauf profitiert von der direkten Ausführung des optimierten Maschinencodes auf dem Silicon.
 
 ## Exercise 3: Time Travel via Gradients (grad)
 
@@ -24,7 +29,7 @@ In dieser Aufgabe wurde die Simulation als differenzierbarer mathematischer Grap
 
 - **Status:** Implementiert in `src/jax_optimization.py`.
 - **Ziel:** Erreichen einer Distanz von 150.0m nach 5s.
-- **Ergebnis:** *Warten auf Ausführung (Optimierte Geschwindigkeit)*
+- **Ergebnis:** Optimierte Anfangsgeschwindigkeit: **30.0000 m/s** (Finale Distanz: 150.00 m).
 
 ## Exercise 4: Agentic Refactoring for the Horizon (Flax)
 
