@@ -32,7 +32,8 @@ class HeatSurrogate(nn.Module):
 
 def init_model(key):
     model = HeatSurrogate()
-    # Dummy inputs for initialization (x, t)
+    # Dummy inputs for initialization (x, t) - each is (Batch, 1)
+    # The model expects hstack([x, t]) which results in (Batch, 2)
     x_dummy = jnp.ones((1, 1))
     t_dummy = jnp.ones((1, 1))
     params = model.init(key, x_dummy, t_dummy)
