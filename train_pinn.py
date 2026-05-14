@@ -15,9 +15,7 @@ def main():
     model, params = init_model(key)
     
     print("--- Generating Physics Domain ---")
-    colloc, ic, bc = generate_data(key)
-    # Package into format expected by compute_loss (x, t, u)
-    batch = (colloc, (ic[0], jnp.zeros_like(ic[0]), ic[1]), (bc[0][:,0:1], bc[0][:,1:2], bc[1]))
+    batch = generate_data(key)
     
     # Training Configuration
     opt_state = optimizer.init(params)

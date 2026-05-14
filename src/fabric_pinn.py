@@ -80,7 +80,7 @@ def compute_loss(params, batch):
     """
     Computes the Total Loss: Physics_Loss + IC_Loss + BC_Loss
     """
-    colloc, (ic_x, ic_t, ic_u), (bc_x, bc_t, bc_u) = batch
+    colloc, (ic_points, ic_u), (bc_points, u_bc) = batch
     
     # 1. Physics Loss (PDE Residual)
     colloc_x = colloc[:, 0:1]
@@ -89,12 +89,16 @@ def compute_loss(params, batch):
     
     # 2. Initial Condition Loss
     model = HeatSurrogate()
+    ic_x = ic_points[:, 0:1]
+    ic_t = ic_points[:, 1:2]
     pred_ic = model.apply(params, ic_x, ic_t)
     ic_loss = jnp.mean((pred_ic - ic_u) ** 2)
     
     # 3. Boundary Condition Loss
-    pred_bc = model.apply(params, bc_x, bc_t)
-    bc_loss = jnp.mean((pred_bc - bc_u) ** 2)
+    x_bc = bc_points[:, 0:1]
+    t_bc = bc_points[:, 1:2]
+    pred_bc = model.apply(params, x_bc, t_bc)
+    bc_loss = jnp.mean((pred_bc - u_bc) ** 2)
     
     total_loss = phys_loss + ic_loss + bc_loss
     return total_loss
