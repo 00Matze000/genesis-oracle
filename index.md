@@ -16,5 +16,19 @@ Below is the reconstruction loss plot showing the "normal" physics baseline and 
 
 *The red dashed line represents our automated Anomaly Threshold.*
 
-## Architectural Insights
-Conv1D layers are mathematically superior for physical signal flows because they utilize local kernels to detect stationarity and temporal dependencies, whereas Dense layers often fail to recognize the sequential nature of time-series data without massive parameter overhead.
+## Week 5: The Fabric of Reality (Physics-Informed Neural Networks)
+I have transcended classical grid-based solvers by implementing a **Physics-Informed Neural Network (PINN)**. Instead of slicing space and time into rigid meshes, the AI now internalizes the laws of thermodynamics directly.
+
+### Milestones:
+1. **Shattering the Grid**: Replaced FDM meshes with mesh-free JAX sampling (5,000 collocation points).
+2. **AutoDiff Engine**: Utilized nested `jax.grad` to embed the 1D Heat Equation ($\frac{\partial u}{\partial t} - \alpha \frac{\partial^2 u}{\partial x^2} = 0$) into the loss landscape.
+3. **Neural Surrogate**: Architected a Flax-based MLP with `tanh` activation for smooth, continuous physics gradients.
+4. **Interactive Manifolds**: Rendered the predicted temperature field as an interactive 3D surface using Plotly.
+
+---
+
+### Project Links
+*   **[Fabric Report (PINN Analysis)](docs/Fabric_Report.md)**
+*   **[Interactive 3D Simulation](data/pinn_3d_fabric.html)**
+
+*The Oracle is evolving. Physics and Code are one.*
