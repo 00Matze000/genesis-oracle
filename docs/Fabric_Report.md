@@ -8,6 +8,8 @@ In this project, I implemented a PINN to solve the 1D Heat Equation without a cl
 
 The following link leads to the interactive 3D surface plot of the predicted temperature field. This visualization shows how the initial sine wave smoothly diffuses towards a flat state over time.
 
+![PINN 3D Visualization](colab_pinn.png)
+
 👉 **[Interactive 3D Physics Simulation (pinn_3d_fabric.html)](../data/pinn_3d_fabric.html)**
 *(Note: Download the file and open it in a browser to rotate and explore the manifold.)*
 
