@@ -1,4 +1,4 @@
-﻿# Project Genesis: The Oracle Awakens
+# Project Genesis: The Oracle Awakens
 
 ## Experiment Summary
 In this project, we developed a Deep Autoencoder (The Oracle) to detect anomalies in physical signal flows, specifically focusing on RC-filter data. 
@@ -31,4 +31,20 @@ I have transcended classical grid-based solvers by implementing a **Physics-Info
 *   **[Fabric Report (PINN Analysis)](docs/Fabric_Report.md)**
 *   **[Interactive 3D Simulation](data/pinn_3d_fabric.html)**
 
-*The Oracle is evolving. Physics and Code are one.*
+---
+
+## Week 6: The Chaos Engine (Stochastic & Markov Systems)
+I have extended the Oracle with a high-performance **stochastic simulation engine** and a **macro-economic Markov Chain** propagation layer. By transitioning to JAX's stateless PRNG paradigm, the Oracle now models volatility and economic "Black Swan" events at native compiler speeds.
+
+### Key Milestones:
+1. **Stateless Monte Carlo Engine**: Implemented a pure functional business simulator in JAX. Bypassed global mutable state using stateless `PRNGKey` splits, executing $1,000,000$ trajectories in parallel via `jax.vmap` with a **$7.00\times$ compilation speedup**.
+2. **Stress-Testing & Sensitivities**: Deployed automated subagents to perform sensitivity sweeps. Found the critical cost volatility breaking point at **$\sigma_C \approx 4.00$** where Value-at-Risk ($VaR_{95\%}$) collapses below zero.
+3. **Markovian Black Swan Shield**: Formulated a 3-state macro-economic model (Bull, Stagnation, Catastrophic Recession) using `jax.lax.scan`. Injected a 10-day economic crisis at day 180, forcing a surge in recession probability up to **$76.19\%$**, followed by a full system recovery by day 365.
+
+### Visualization & Reports:
+*   **[Swarm Stress Report (Sensitivity & Profiling Analysis)](docs/Swarm_Stress_Report.md)**
+*   **[Interactive Revenue Distribution Plot](data/revenue_dist.png)**
+*   **[Markov State Propagation Timeline](data/markov_states.png)**
+
+*The Oracle has conquered randomness. Chaos is now under agentic control.*
+
