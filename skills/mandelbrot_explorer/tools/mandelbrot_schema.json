@@ -1,0 +1,30 @@
+{
+  "name": "simulate_mandelbrot",
+  "description": "Runs a JAX-accelerated Mandelbrot simulation on the specified center coordinates and zoom factor.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "center_real": {
+        "type": "number",
+        "description": "The real part of the center coordinate."
+      },
+      "center_imag": {
+        "type": "number",
+        "description": "The imaginary part of the center coordinate."
+      },
+      "zoom": {
+        "type": "number",
+        "description": "The zoom factor."
+      },
+      "max_iterations": {
+        "type": "integer",
+        "description": "Maximum iterations for the escape time algorithm. Default is 500."
+      }
+    },
+    "required": [
+      "center_real",
+      "center_imag",
+      "zoom"
+    ]
+  }
+}
