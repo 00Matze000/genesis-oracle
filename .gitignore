@@ -3,3 +3,4 @@ data/
 __pycache__/
 .env
 cognitive_core/.env
+cognitive_core/.adk/
