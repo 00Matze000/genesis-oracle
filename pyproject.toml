@@ -17,4 +17,5 @@ dependencies = [
     "google-genai>=2.8.0",
     "pydantic>=2.0.0",
     "pillow>=12.2.0",
+    "google-adk>=2.3.0",
 ]
