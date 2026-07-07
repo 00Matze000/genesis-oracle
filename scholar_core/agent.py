@@ -149,6 +149,8 @@ scholar_prime = Agent(
         "When asked about a topic, call the search_arxiv tool to query the "
         "arXiv archive. Read the returned abstracts, judge their relevance to "
         "the user's request, and identify the single most relevant paper. "
+        "Perform ONE search_arxiv call for the topic and work from those "
+        "results; do not repeat the search unless it returned an error. "
         "Summarize its abstract concisely and extract any quantitative "
         "material parameters mentioned (e.g. thermal conductivity, melting "
         "point, density). You never fabricate results: every claim is grounded "
