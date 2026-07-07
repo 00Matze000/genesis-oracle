@@ -1,0 +1,79 @@
+=== A2A Discovery: WeatherPredictor Agent Card ===
+{
+  "name": "WeatherPredictor",
+  "description": "Spezialisierter Agent fuer Spreewald-Wetter- und Pegelprognosen.",
+  "url": "https://weather.team-b.spreeland.example/a2a",
+  "version": "1.4.0",
+  "skills": [
+    {
+      "id": "river_forecast",
+      "name": "River level forecast",
+      "description": "48-h-Pegelprognose fuer einen Spree-Pegel."
+    },
+    {
+      "id": "precip_forecast",
+      "name": "Precipitation forecast",
+      "description": "Niederschlagswahrscheinlichkeit fuer eine Region."
+    }
+  ],
+  "capabilities": {
+    "streaming": true
+  }
+}
+
+=== A2A Expert Consultation: river_forecast ===
+{
+  "state": "completed",
+  "remote_agent": "WeatherPredictor",
+  "skill_used": "river_forecast",
+  "artifact": {
+    "gauge": "spree-burg",
+    "horizon_h": 48,
+    "predicted_level_cm": 272,
+    "flood_risk": "elevated",
+    "confidence": 0.82
+  }
+}
+
+=== A2A Negotiation: 2 t Gurken ===
+{
+  "state": "completed",
+  "quantity_kg": 2000,
+  "budget_eur_per_kg": 1.8,
+  "agreed_price_eur_per_kg": 1.78,
+  "total_eur": 3560.0,
+  "rounds": 2,
+  "transcript": [
+    {
+      "round": 1,
+      "role": "buyer",
+      "action": "bid",
+      "eur_per_kg": 1.45
+    },
+    {
+      "round": 1,
+      "role": "seller",
+      "action": "counter",
+      "eur_per_kg": 2.1
+    },
+    {
+      "round": 2,
+      "role": "buyer",
+      "action": "bid",
+      "eur_per_kg": 1.77
+    },
+    {
+      "round": 2,
+      "role": "seller",
+      "action": "counter",
+      "eur_per_kg": 1.78
+    },
+    {
+      "round": 2,
+      "role": "buyer",
+      "action": "accept",
+      "eur_per_kg": 1.78
+    }
+  ],
+  "supplier": "SpreewaldGherkinCoop"
+}

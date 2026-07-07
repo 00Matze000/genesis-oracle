@@ -9,3 +9,6 @@ scholar_core/.adk/
 # Externer DeepMind-Klon (reproduzierbar via `git clone`), nicht mitversionieren
 science-skills/
 scholar_core/win_ca_bundle.pem
+dispatch_core/.env
+dispatch_core/.adk/
+dispatch_core/outputs/*.db

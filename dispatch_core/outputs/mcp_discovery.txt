@@ -1,0 +1,11 @@
+MCP-Server verbunden. 3 Tool(s) entdeckt:
+
+  - list_bridges()
+      Listet alle Bruecken der Region mit Kennung, Name und aktuellem Status.
+  - get_bridge_status(bridge_id)
+      Liefert den Echtzeit-Status einer Bruecke.
+  - get_river_level(gauge)
+      Liefert Pegelstand und Trend eines Flusspegels.
+
+Aufruf get_bridge_status('burg-01') ->
+  {'content': [{'type': 'text', 'text': '{\n  "bridge_id": "burg-01",\n  "name": "Hauptbruecke Burg (Spree)",\n  "status": "maintenance",\n  "clearance_t": 3.5,\n  "reopen_eta": "2026-07-08T06:00",\n  "detour": "burg-03"\n}'}], 'isError': False}

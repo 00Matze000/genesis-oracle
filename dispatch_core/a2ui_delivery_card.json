@@ -1,0 +1,102 @@
+{
+  "protocol": "a2ui/v0.8",
+  "messageType": "render",
+  "surface": {
+    "type": "Card",
+    "id": "delivery-status",
+    "children": [
+      {
+        "type": "Text",
+        "variant": "title",
+        "value": "Lieferstatus Spreeland"
+      },
+      {
+        "type": "Text",
+        "variant": "subtitle",
+        "value": "Burg -> Cottbus (via burg-03)"
+      },
+      {
+        "type": "Divider"
+      },
+      {
+        "type": "Table",
+        "columns": [
+          "Bruecke",
+          "Status"
+        ],
+        "rows": [
+          [
+            "Hauptbruecke Burg",
+            "maintenance"
+          ],
+          [
+            "Umleitungsbruecke Muellrose",
+            "open"
+          ],
+          [
+            "Nordbruecke Cottbus",
+            "open"
+          ]
+        ]
+      },
+      {
+        "type": "Chart",
+        "chartType": "line",
+        "title": "Pegel Spree-Burg (cm)",
+        "series": [
+          {
+            "name": "level_cm",
+            "data": [
+              208,
+              210,
+              214,
+              219,
+              223
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Row",
+        "children": [
+          {
+            "type": "Text",
+            "variant": "label",
+            "value": "ETA"
+          },
+          {
+            "type": "Text",
+            "variant": "value",
+            "value": "2026-07-08T09:30"
+          },
+          {
+            "type": "Text",
+            "variant": "label",
+            "value": "Summe"
+          },
+          {
+            "type": "Text",
+            "variant": "value",
+            "value": "3560.00 EUR"
+          }
+        ]
+      },
+      {
+        "type": "Row",
+        "children": [
+          {
+            "type": "Button",
+            "action": "confirm_dispatch",
+            "label": "Disposition freigeben"
+          },
+          {
+            "type": "Button",
+            "action": "reroute",
+            "label": "Umleiten",
+            "style": "secondary"
+          }
+        ]
+      }
+    ]
+  }
+}

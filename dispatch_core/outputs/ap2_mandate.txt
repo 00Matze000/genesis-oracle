@@ -1,0 +1,24 @@
+{
+  "intent_mandate": {
+    "type": "IntentMandate",
+    "owner": "farm-owner@spreeland",
+    "constraints": {
+      "category": "vegetables",
+      "max_quantity_kg": 2500,
+      "max_price_eur_per_kg": 1.8
+    }
+  },
+  "cart_mandate": {
+    "type": "CartMandate",
+    "item": "gherkins",
+    "quantity_kg": 2000,
+    "price_eur_per_kg": 1.78,
+    "total_eur": 3560.0,
+    "intent_hash": "e9ad0ca9655f84c5f14879e5d523815fde0628a375883f1e2713e9c92106f0c6",
+    "authorized": true
+  },
+  "signature_ecdsa_p256": "3046022100b518785f8b25b0ad07ae4fc1536a49e3510fc81272d0e86413280e78165dfdfe022100c172784afc257974769ff7a31186806a10c1a7d6979bf9abf80873d6eb06a641",
+  "signature_valid": true,
+  "authorized_by_intent": true,
+  "tampered_signature_valid": false
+}
