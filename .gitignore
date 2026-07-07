@@ -4,3 +4,7 @@ __pycache__/
 .env
 cognitive_core/.env
 cognitive_core/.adk/
+scholar_core/.env
+scholar_core/.adk/
+# Externer DeepMind-Klon (reproduzierbar via `git clone`), nicht mitversionieren
+science-skills/
