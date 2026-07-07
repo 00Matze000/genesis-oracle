@@ -13,6 +13,12 @@ from pathlib import Path
 
 from google.adk.agents.llm_agent import Agent
 
+from scholar_core import tls_fix
+
+# TLS-Proxy-Fix aktivieren, bevor ADK/google-genai die erste HTTPS-Verbindung
+# zur Gemini-API aufbaut (BTU-Netz, siehe scholar_core/tls_fix.py).
+tls_fix.apply()
+
 # Pfade relativ zu dieser Datei, damit das Tool unabhaengig vom
 # Arbeitsverzeichnis der ADK-Web-UI funktioniert.
 _REPO_ROOT = Path(__file__).resolve().parent.parent
