@@ -119,13 +119,15 @@ def consult_weather_predictor(gauge: str, horizon_h: int = 48) -> dict:
         return {"state": "failed", "error": "Skill 'river_forecast' nicht im Card."}
 
     # Deterministische Beispielprognose (in echt: Antwort des Fremd-Agenten).
+    # Schwelle = Hochwassermarke des Pegels spree-burg (siehe bridge_mcp_server).
     trend_cm_per_h = 1.2
+    flood_mark_cm = 260
     forecast_cm = 214 + round(trend_cm_per_h * horizon_h)
     artifact = {
         "gauge": gauge,
         "horizon_h": horizon_h,
         "predicted_level_cm": forecast_cm,
-        "flood_risk": "elevated" if forecast_cm > 250 else "moderate",
+        "flood_risk": "elevated" if forecast_cm > flood_mark_cm else "moderate",
         "confidence": 0.82,
     }
     return {
