@@ -1,0 +1,36 @@
+{
+  "extracted_parameters": {
+    "material": "Uranium Dioxide (UO2)",
+    "thermal_conductivity_W_mK": null,
+    "interfacial_thermal_resistance_m2K_W": 1e-09,
+    "melting_point_K": null,
+    "density_g_cm3": null,
+    "temperature_range_C": null,
+    "raw_matches": {
+      "interfacial_thermal_resistance": "10-9 m2K/W"
+    },
+    "source_preview": "UO2/BeO interfacial thermal resistance (ITR) is calculated by diffuse mismatch model (DMM) and the effects of ITR on UO2-BeO thermal conductivity are investigated. ITR predicted by DMM is on the order"
+  },
+  "source_paper": {
+    "title": "UO2/BeO interfacial thermal resistance and its effect on fuel thermal conductivity",
+    "authors": [
+      "Xueyan Zhu",
+      "Rui Gao",
+      "Hengfeng Gong",
+      "Tong Liu",
+      "De-Ye Lin",
+      "Haifeng Song"
+    ],
+    "arxiv_id": "2006.11705v1",
+    "doi": "10.1016/j.anucene.2020.108102",
+    "doi_url": "https://doi.org/10.1016/j.anucene.2020.108102",
+    "pdf_url": "https://arxiv.org/pdf/2006.11705v1",
+    "primary_category": "physics.app-ph",
+    "published": "2020-06-21T03:39:39Z"
+  },
+  "provenance": {
+    "database": "arXiv (via DeepMind science-skills literature_search_arxiv)",
+    "query": "thermal conductivity uranium dioxide UO2 nuclear fuel",
+    "extractor": "scholar_core.extraction.extract_parameters_from_text"
+  }
+}

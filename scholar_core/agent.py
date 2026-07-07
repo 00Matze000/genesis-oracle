@@ -59,16 +59,18 @@ def _parse_arxiv_stdout(stdout: str):
     return None
 
 
-def search_arxiv(query: str, max_results: int = 5) -> str:
-    """Durchsucht arXiv nach wissenschaftlichen Publikationen zu einem Thema.
+def search_arxiv_papers(query: str, max_results: int = 5):
+    """Ruft das arXiv-CLI auf und gibt die Treffer als Liste von Dicts zurueck.
+
+    Gemeinsam von der Tool-Funktion `search_arxiv` und der Extraktions-Pipeline
+    genutzt. Bei Fehlern wird ein Fehlerstring zurueckgegeben.
 
     Args:
-        query: Suchbegriff bzw. arXiv-Query (z. B. 'thermal conductivity UO2').
-        max_results: Maximale Anzahl zurueckgegebener Publikationen.
+        query: Suchbegriff bzw. arXiv-Query.
+        max_results: Maximale Anzahl Treffer.
 
     Returns:
-        Ein Klartext-Report mit Titel, Autoren, DOI/arXiv-URL und Abstract je
-        Treffer. Bei Fehlern ein beschreibender Fehlerstring.
+        list[dict] mit Paper-Metadaten, oder str im Fehlerfall.
     """
     if not _ARXIV_CLI.exists():
         return f"Error: arXiv-CLI nicht gefunden unter {_ARXIV_CLI}"
@@ -89,9 +91,26 @@ def search_arxiv(query: str, max_results: int = 5) -> str:
 
     papers = _parse_arxiv_stdout(res.stdout)
     if papers is None:
-        # Fallback: rohe Ausgabe zurueckgeben, falls kein JSON erkennbar.
         return res.stdout.strip()
+    return papers
 
+
+def search_arxiv(query: str, max_results: int = 5) -> str:
+    """Durchsucht arXiv nach wissenschaftlichen Publikationen zu einem Thema.
+
+    Args:
+        query: Suchbegriff bzw. arXiv-Query (z. B. 'thermal conductivity UO2').
+        max_results: Maximale Anzahl zurueckgegebener Publikationen.
+
+    Returns:
+        Ein Klartext-Report mit Titel, Autoren, DOI/arXiv-URL und Abstract je
+        Treffer. Bei Fehlern ein beschreibender Fehlerstring.
+    """
+    papers = search_arxiv_papers(query, max_results)
+
+    if isinstance(papers, str):
+        # Fehler-/Rohausgabe unveraendert durchreichen.
+        return papers
     if not papers:
         return f"Keine arXiv-Treffer fuer '{query}'."
 
